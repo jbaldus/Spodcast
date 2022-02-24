@@ -58,7 +58,7 @@ class Spodcast:
         cred_directory = Config.get_config_dir()
         if os.path.isdir(cred_directory):
             (username,password) = line.split()
-            cred_filename = CREDENTIALS_PREFIX + "-" + hashlib.md5(username.encode('utf-8'),usedforsecurity=False).hexdigest() + ".json"
+            cred_filename = CREDENTIALS_PREFIX + "-" + hashlib.new('md5', username.encode('utf-8'), usedforsecurity=False).hexdigest() + ".json"
             cred_location = os.path.join(cred_directory, cred_filename)
             conf = Session.Configuration.Builder().set_stored_credential_file(cred_location).build()
             session = Session.Builder(conf).user_pass(username, password).create()
